@@ -1,0 +1,18 @@
+# Java / Spring Boot (capas por paquete). Ajusta com/empresa a tu dominio.
+src/main/java/com/empresa/{{nombre}}/config
+src/main/java/com/empresa/{{nombre}}/controller
+src/main/java/com/empresa/{{nombre}}/dto
+src/main/java/com/empresa/{{nombre}}/exception
+src/main/java/com/empresa/{{nombre}}/mapper
+src/main/java/com/empresa/{{nombre}}/model/entity
+src/main/java/com/empresa/{{nombre}}/repository
+src/main/java/com/empresa/{{nombre}}/security
+src/main/java/com/empresa/{{nombre}}/service/impl
+src/main/java/com/empresa/{{nombre}}/util
+src/main/resources/db/migration
+src/test/java/com/empresa/{{nombre}}/controller
+src/test/java/com/empresa/{{nombre}}/service
+src/test/java/com/empresa/{{nombre}}/repository
+src/test/resources
+docker
+scripts

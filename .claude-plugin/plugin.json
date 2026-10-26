@@ -1,0 +1,7 @@
+{
+  "name": "estructura-proyectos",
+  "version": "0.3.0",
+  "description": "Crea proyectos estandarizados (backend: Java, Python, Node, .NET; frontend: Angular, Vue, React) con estructura de directorios consistente y carpeta Documentacion.",
+  "author": { "name": "Edgar López Martínez" },
+  "keywords": ["scaffold", "estructura", "angular", "vue", "react", "java", "python", "node", "dotnet"]
+}

@@ -1,0 +1,25 @@
+# Java fullstack: Spring Boot + Thymeleaf (un solo módulo)
+src/main/java/com/empresa/{{nombre}}/config
+src/main/java/com/empresa/{{nombre}}/web
+src/main/java/com/empresa/{{nombre}}/api
+src/main/java/com/empresa/{{nombre}}/dto
+src/main/java/com/empresa/{{nombre}}/exception
+src/main/java/com/empresa/{{nombre}}/mapper
+src/main/java/com/empresa/{{nombre}}/model/entity
+src/main/java/com/empresa/{{nombre}}/repository
+src/main/java/com/empresa/{{nombre}}/security
+src/main/java/com/empresa/{{nombre}}/service/impl
+src/main/java/com/empresa/{{nombre}}/util
+src/main/resources/templates/layouts
+src/main/resources/templates/fragments
+src/main/resources/templates/pages
+src/main/resources/static/css
+src/main/resources/static/js
+src/main/resources/static/images
+src/main/resources/db/migration
+src/test/java/com/empresa/{{nombre}}/web
+src/test/java/com/empresa/{{nombre}}/api
+src/test/java/com/empresa/{{nombre}}/service
+src/test/resources
+docker
+scripts

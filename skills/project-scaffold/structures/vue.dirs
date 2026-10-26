@@ -1,0 +1,16 @@
+# Vue 3 (Composition API, Pinia, Vue Router)
+public
+src/assets
+src/components/common
+src/components/ui
+src/composables
+src/layouts
+src/router
+src/stores
+src/services/api
+src/views
+src/types
+src/utils
+src/plugins
+tests/unit
+tests/e2e

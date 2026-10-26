@@ -1,0 +1,16 @@
+# Node.js (Express/Fastify/Nest-agnóstico, TypeScript)
+src/config
+src/controllers
+src/routes
+src/services
+src/repositories
+src/models
+src/middlewares
+src/validators
+src/utils
+src/types
+migrations
+tests/unit
+tests/integration
+docker
+scripts

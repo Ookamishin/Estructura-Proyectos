@@ -1,0 +1,6 @@
+{
+  "name": "estructura-proyectos",
+  "version": "0.3.0",
+  "description": "Crea proyectos estandarizados (backend, frontend, fullstack) con carpeta Documentacion.",
+  "contextFileName": "GEMINI.md"
+}

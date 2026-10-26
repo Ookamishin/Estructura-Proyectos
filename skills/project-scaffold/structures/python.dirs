@@ -1,0 +1,14 @@
+# Python / FastAPI (también válido para Flask/Django adaptando nombres)
+app/api/v1/endpoints
+app/core
+app/db
+app/models
+app/schemas
+app/services
+app/repositories
+app/utils
+migrations
+tests/unit
+tests/integration
+docker
+scripts

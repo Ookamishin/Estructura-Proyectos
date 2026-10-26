@@ -1,0 +1,18 @@
+# React (organizado por features)
+public
+src/app/providers
+src/app/router
+src/app/store
+src/assets
+src/components/ui
+src/features
+src/hooks
+src/layouts
+src/pages
+src/services/api
+src/lib
+src/types
+src/utils
+src/styles
+tests/unit
+tests/e2e

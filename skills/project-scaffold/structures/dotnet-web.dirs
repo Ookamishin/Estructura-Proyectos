@@ -1,0 +1,25 @@
+# .NET fullstack: ASP.NET Core MVC/Razor (un solo proyecto web + capas de apoyo)
+src/{{Nombre}}.Web/Controllers
+src/{{Nombre}}.Web/Api
+src/{{Nombre}}.Web/Views/Shared
+src/{{Nombre}}.Web/Views/Home
+src/{{Nombre}}.Web/ViewModels
+src/{{Nombre}}.Web/Middleware
+src/{{Nombre}}.Web/Extensions
+src/{{Nombre}}.Web/wwwroot/css
+src/{{Nombre}}.Web/wwwroot/js
+src/{{Nombre}}.Web/wwwroot/images
+src/{{Nombre}}.Application/DTOs
+src/{{Nombre}}.Application/Interfaces
+src/{{Nombre}}.Application/Services
+src/{{Nombre}}.Application/Validators
+src/{{Nombre}}.Domain/Entities
+src/{{Nombre}}.Domain/Enums
+src/{{Nombre}}.Domain/Exceptions
+src/{{Nombre}}.Infrastructure/Persistence/Configurations
+src/{{Nombre}}.Infrastructure/Persistence/Migrations
+src/{{Nombre}}.Infrastructure/Repositories
+tests/{{Nombre}}.UnitTests
+tests/{{Nombre}}.IntegrationTests
+docker
+scripts

@@ -1,0 +1,18 @@
+# Python fullstack: Django (apps por dominio, plantillas y estáticos)
+config/settings
+apps/core
+apps/accounts
+apps/api
+templates/layouts
+templates/partials
+templates/pages
+static/css
+static/js
+static/images
+services
+locale
+migrations
+tests/unit
+tests/integration
+docker
+scripts

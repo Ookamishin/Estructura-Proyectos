@@ -1,0 +1,21 @@
+# .NET (Clean Architecture, 4 proyectos + tests)
+src/{{Nombre}}.Api/Controllers
+src/{{Nombre}}.Api/Middleware
+src/{{Nombre}}.Api/Extensions
+src/{{Nombre}}.Application/DTOs
+src/{{Nombre}}.Application/Interfaces
+src/{{Nombre}}.Application/Services
+src/{{Nombre}}.Application/Validators
+src/{{Nombre}}.Application/Mappings
+src/{{Nombre}}.Domain/Entities
+src/{{Nombre}}.Domain/Enums
+src/{{Nombre}}.Domain/Exceptions
+src/{{Nombre}}.Domain/Interfaces
+src/{{Nombre}}.Infrastructure/Persistence/Configurations
+src/{{Nombre}}.Infrastructure/Persistence/Migrations
+src/{{Nombre}}.Infrastructure/Repositories
+src/{{Nombre}}.Infrastructure/Services
+tests/{{Nombre}}.UnitTests
+tests/{{Nombre}}.IntegrationTests
+docker
+scripts

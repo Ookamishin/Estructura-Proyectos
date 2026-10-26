@@ -1,0 +1,16 @@
+# Angular (standalone, organizado por features)
+src/app/core/guards
+src/app/core/interceptors
+src/app/core/services
+src/app/core/models
+src/app/shared/components
+src/app/shared/directives
+src/app/shared/pipes
+src/app/shared/utils
+src/app/features
+src/app/layouts
+src/assets/images
+src/assets/i18n
+src/environments
+src/styles
+tests/e2e

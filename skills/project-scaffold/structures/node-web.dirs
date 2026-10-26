@@ -1,0 +1,19 @@
+# Node fullstack: Next.js (App Router, TypeScript)
+public
+src/app/api
+src/app/(auth)
+src/app/(main)
+src/components/ui
+src/components/features
+src/lib
+src/server/services
+src/server/repositories
+src/server/validators
+src/hooks
+src/types
+src/styles
+prisma
+tests/unit
+tests/e2e
+docker
+scripts
