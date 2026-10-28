@@ -44,9 +44,32 @@ python3 skills/project-scaffold/scripts/scaffold.py --nombre mi-app --fullstack 
 
 - Un solo tipo: la estructura queda en la raíz. Ambos: `backend/` y `frontend/`. `--fullstack`: un solo proyecto (no se combina con los anteriores).
 - `--force` permite usar una carpeta no vacía.
+- `--sin-sdd` omite la carpeta `Documentacion/specs`.
 
 ## Documentacion
 Cada proyecto incluye `Documentacion/backend` y/o `Documentacion/frontend`, con la propuesta `estructura-<stack>.md` y subcarpetas (arquitectura, api, decisiones, guías…). Toda documentación generada se guarda ahí. Detalle en `skills/project-scaffold/references/documentacion.md`.
+
+## Spec-Driven Development (SDD)
+Cada proyecto incluye `Documentacion/specs/` para trabajar con especificaciones como fuente de verdad:
+
+- `README.md`: guía de buenas prácticas SDD (flujo spec → plan → tareas → implementación, puertas de calidad, antipatrones, uso con agentes de IA).
+- `constitucion.md`: principios no negociables del proyecto.
+- `_plantillas/`: `spec.md`, `plan.md` y `tareas.md`. Cada feature va en `specs/NNN-nombre-feature/`.
+
+Pide al agente «especifica la feature de login» y seguirá el flujo. La guía fuente está en `skills/project-scaffold/references/sdd.md`.
+
+Scripts (cualquier herramienta, Python 3.9+):
+```
+python3 skills/project-scaffold/scripts/nueva_spec.py --nombre "login de usuarios" --ruta ~/proyectos/mi-api
+python3 skills/project-scaffold/scripts/validar_spec.py ~/proyectos/mi-api/Documentacion/specs/001-login-de-usuarios --fase plan
+```
+- `nueva_spec.py`: crea `specs/NNN-nombre/` con el siguiente número, copia las plantillas (las del proyecto si existen) y registra la feature en `Documentacion/README.md`.
+- `validar_spec.py`: revisa una feature o todas las del proyecto; con `--fase spec|plan|tareas|implementar` exige lo necesario para avanzar. Sale con código 1 si hay errores.
+
+### Comandos SDD (solo Claude Code)
+`commands/` contiene `/sdd-especificar`, `/sdd-aclarar`, `/sdd-planear`, `/sdd-tareas`, `/sdd-implementar` y `/sdd-validar`. Se cargan con el plugin (como `/estructura-proyectos:sdd-…`) o con `python3 install.py --tool claude` (en `~/.claude/commands`).
+
+> **Nota:** estos comandos usan el formato de Claude Code (Markdown con frontmatter y `$ARGUMENTS`). Para usarlos con otra IA hay que adaptarlos a su formato: Gemini CLI usa archivos `.toml` en `commands/` con `prompt` y `{{args}}`; OpenCode y Codex CLI usan `.md` en su propia carpeta de comandos/prompts. Verifica el formato en la documentación de cada herramienta. Sin comandos, cualquier IA puede seguir el mismo flujo pidiéndolo en lenguaje natural, ya que la skill y los scripts son comunes.
 
 ## Personalizar
 Edita juntos `structures/<stack>.dirs` y `proposals/<stack>.md`.

@@ -1,6 +1,6 @@
 ---
 name: project-scaffold
-description: Crea proyectos con estructura de directorios estandarizada para Angular, Vue, React (frontend) y Java, Python, Node, .NET (backend/API), con propuesta de estructura en .md y carpeta Documentacion. Usar al iniciar, crear o estandarizar un proyecto, o al generar documentación de uno.
+description: Crea proyectos con estructura de directorios estandarizada para Angular, Vue, React (frontend) y Java, Python, Node, .NET (backend/API), con propuesta de estructura en .md, carpeta Documentacion y specs de Spec-Driven Development (SDD). Usar al iniciar, crear o estandarizar un proyecto, al generar documentación de uno o al especificar/planear una feature con SDD.
 ---
 
 # project-scaffold
@@ -32,7 +32,8 @@ La lista de directorios de cada stack está en `structures/<stack>.dirs` (una ru
    - Ambos: `backend/` y `frontend/` bajo la raíz.
    - `--fullstack java-web|dotnet-web|python-web|node-web`: un solo proyecto en la raíz; no se combina con `--backend`/`--frontend`. La documentación se crea en ambas carpetas y la propuesta queda en `Documentacion/estructura-<stack>.md`.
    - `--force` permite usar una carpeta destino no vacía.
-3. El script crea los directorios (con `.gitkeep`), copia la propuesta del stack a `Documentacion/<tipo>/estructura-<stack>.md` y genera `Documentacion/README.md` como índice.
+   - `--sin-sdd` omite `Documentacion/specs` (por defecto se crea).
+3. El script crea los directorios (con `.gitkeep`), copia la propuesta del stack a `Documentacion/<tipo>/estructura-<stack>.md`, crea `Documentacion/specs/` (guía SDD, `constitucion.md` y `_plantillas/`) y genera `Documentacion/README.md` como índice.
 4. Si el usuario quiere cambiar la estructura de un stack, edita `structures/<stack>.dirs` y `proposals/<stack>.md` juntos (deben coincidir).
 
 ## Regla de documentación
@@ -40,4 +41,27 @@ Toda documentación que se genere para el proyecto (arquitectura, API, decisione
 - `Documentacion/backend/` → ver subcarpetas en `references/documentacion.md`
 - `Documentacion/frontend/`
 
+- `Documentacion/specs/` → specs de features (SDD), transversales a backend y frontend.
+
 Nunca dejes documentos sueltos en la raíz del proyecto (salvo `README.md` y `CHANGELOG.md` convencionales).
+
+## Spec-Driven Development (SDD)
+Cuando el usuario pida una feature o cambio de comportamiento en un proyecto, sigue `references/sdd.md` (copiada en el proyecto como `Documentacion/specs/README.md`):
+1. Si no existe `Documentacion/specs/constitucion.md`, propón completarla primero.
+2. Crea la feature con el script (no a mano); toma el siguiente número libre, copia las plantillas del proyecto (o las de `templates/sdd/`) y actualiza `Documentacion/README.md`:
+   ```
+   python3 scripts/nueva_spec.py --nombre "<nombre de la feature>" [--ruta <raíz del proyecto>] [--autor <nombre>]
+   ```
+3. Escribe `spec.md` (qué y por qué, sin tecnología). Marca dudas con `[POR ACLARAR: …]` y pregúntalas al usuario; no las resuelvas por tu cuenta.
+4. Con la spec aprobada por el usuario (estado `Aprobada`), escribe `plan.md` (verificando la constitución) y luego `tareas.md`.
+5. Implementa tarea por tarea, pruebas primero, marcando `[x]`; al terminar, pon la spec en estado `Implementada`.
+
+Antes de pasar de fase, valida y corrige los errores que reporte (código de salida 1 si hay errores):
+```
+python3 scripts/validar_spec.py <carpeta de la feature | raíz del proyecto> [--fase spec|plan|tareas|implementar]
+```
+Revisa: `[POR ACLARAR]` pendientes, historias sin criterio de aceptación, `RF-` sin historia, sin prueba en el plan o sin tarea, tareas sin `Req:`/`Hecho cuando:` o duplicadas, estado de la spec y marcadores `<…>` sin completar.
+
+En Claude Code, el plugin trae los comandos `/sdd-especificar`, `/sdd-aclarar`, `/sdd-planear`, `/sdd-tareas`, `/sdd-implementar` y `/sdd-validar`, que aplican este flujo.
+
+Cambios triviales (typos, estilo, bugs de una línea) no requieren spec.

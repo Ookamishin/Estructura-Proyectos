@@ -5,5 +5,6 @@ Este repositorio contiene la skill `project-scaffold` (`skills/project-scaffold/
 - Cuando el usuario pida crear o estandarizar un proyecto (Angular, Vue, React, Java, Python, Node, .NET), lee `skills/project-scaffold/SKILL.md` y sigue su flujo.
 - Pregunta primero lo que falte: tipo (backend, frontend, ambos o fullstack), stack, nombre y ruta.
 - Crea la estructura solo con `python3 skills/project-scaffold/scripts/scaffold.py` (en Windows: `python` o `py`); no crees directorios a mano.
-- Toda documentación generada va dentro de `Documentacion/backend` o `Documentacion/frontend`.
+- Toda documentación generada va dentro de `Documentacion/backend` o `Documentacion/frontend`; las specs de features (SDD) van en `Documentacion/specs/NNN-feature/`.
+- Para features o cambios de comportamiento, aplica Spec-Driven Development según `skills/project-scaffold/references/sdd.md`: spec → plan → tareas → implementación. Crea cada feature con `scripts/nueva_spec.py` y valida con `scripts/validar_spec.py` antes de pasar de fase.
 - Para cambiar una estructura, edita juntos `structures/<stack>.dirs` y `proposals/<stack>.md`.

@@ -1,5 +1,14 @@
 # Changelog
 
+## [0.4.0] - 2026-10-28
+### Added
+- Spec-Driven Development (SDD): guía de buenas prácticas `references/sdd.md` y plantillas `templates/sdd/` (constitución, spec, plan, tareas).
+- `scaffold.py` crea `Documentacion/specs/` con la guía, la constitución y las plantillas; `--sin-sdd` lo omite.
+- Flujo SDD en `SKILL.md`, `AGENTS.md` y `scaffold-agent`.
+- `nueva_spec.py`: crea `Documentacion/specs/NNN-feature/` con numeración automática, plantillas llenas e índice actualizado.
+- `validar_spec.py`: valida spec, plan y tareas por fase (`--fase spec|plan|tareas|implementar`).
+- Comandos de Claude Code `/sdd-especificar`, `/sdd-aclarar`, `/sdd-planear`, `/sdd-tareas`, `/sdd-implementar`, `/sdd-validar`; `install.py --tool claude` los instala. Requieren adaptación para otras IA (nota en README).
+
 ## [0.3.0] - 2026-10-26
 ### Added
 - Compatibilidad con OpenCode, Gemini CLI y Codex CLI: `install.py`, `AGENTS.md`, `GEMINI.md`, `gemini-extension.json`.
