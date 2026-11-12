@@ -1,5 +1,15 @@
 # Changelog
 
+## [0.5.0] - 2026-11-12
+### Added
+- Organic Driven Development (ODD) como alternativa a SDD: guía `references/odd.md`, plantilla `templates/odd/tarea.md` y `nueva_tarea.py` (registros `Documentacion/odd/tasks/NNN-slug.md`).
+- `scaffold.py --metodologia sdd|odd|ambas|ninguna`; el usuario elige con qué trabajar.
+- Comando de Claude Code `/odd-tarea`; `install.py` lo instala junto a los `/sdd-*`.
+
+### Changed
+- La numeración de `nueva_spec.py` y `nueva_tarea.py` es compartida (sin colisiones entre specs y tareas).
+- `--sin-sdd` queda como alias obsoleto de `--metodologia ninguna`/`odd`.
+
 ## [0.4.0] - 2026-10-28
 ### Added
 - Spec-Driven Development (SDD): guía de buenas prácticas `references/sdd.md` y plantillas `templates/sdd/` (constitución, spec, plan, tareas).

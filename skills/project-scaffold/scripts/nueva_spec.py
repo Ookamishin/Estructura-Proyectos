@@ -26,7 +26,10 @@ def slugify(texto: str) -> str:
 
 
 def next_number(specs: Path) -> str:
+    """Numeración compartida con las tareas ODD (odd/tasks/NNN-*.md)."""
+    tasks = specs.parent / "odd" / "tasks"
     numeros = [int(m.group(1)) for d in specs.iterdir() if d.is_dir() and (m := FEATURE_DIR.match(d.name))]
+    numeros += [int(m.group(1)) for t in (tasks.iterdir() if tasks.is_dir() else []) if (m := FEATURE_DIR.match(t.name))]
     return f"{max(numeros, default=0) + 1:03d}"
 
 

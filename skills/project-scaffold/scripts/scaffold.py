@@ -24,6 +24,8 @@ DOC_SUBDIRS = {
 
 SDD_DIR = SKILL_ROOT / "templates" / "sdd"
 SDD_TEMPLATES = ("spec.md", "plan.md", "tareas.md")
+ODD_DIR = SKILL_ROOT / "templates" / "odd"
+METODOLOGIAS = ("sdd", "odd", "ambas", "ninguna")
 
 
 def new_dir(path: Path, keep: bool = False) -> None:
@@ -71,6 +73,15 @@ def build_specs(docs_root: Path, nombre: str) -> None:
     (specs / "constitucion.md").write_text(constitucion, encoding="utf-8")
 
 
+def build_odd(docs_root: Path) -> None:
+    """Crea Documentacion/odd con la guía ODD, la plantilla de tarea y tasks/."""
+    odd = docs_root / "odd"
+    new_dir(odd / "_plantillas")
+    new_dir(odd / "tasks", keep=True)
+    shutil.copyfile(SKILL_ROOT / "references" / "odd.md", odd / "README.md")
+    shutil.copyfile(ODD_DIR / "tarea.md", odd / "_plantillas" / "tarea.md")
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--nombre", required=True, help="nombre del proyecto")
@@ -79,12 +90,16 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--fullstack", choices=FULLSTACKS, help="un solo proyecto; no se combina con --backend/--frontend")
     p.add_argument("--ruta", default=".", help="directorio destino (por defecto, el actual)")
     p.add_argument("--force", action="store_true", help="permite usar una carpeta destino no vacía")
-    p.add_argument("--sin-sdd", action="store_true", help="no crea Documentacion/specs (Spec-Driven Development)")
+    p.add_argument("--metodologia", choices=METODOLOGIAS, default="sdd",
+                   help="flujo de trabajo: sdd (specs), odd (tareas ligeras), ambas o ninguna (por defecto, sdd)")
+    p.add_argument("--sin-sdd", action="store_true", help="obsoleto: quita SDD (equivale a --metodologia odd/ninguna)")
     args = p.parse_args()
     if not (args.backend or args.frontend or args.fullstack):
         p.error("indica --backend, --frontend o --fullstack.")
     if args.fullstack and (args.backend or args.frontend):
         p.error("--fullstack no se combina con --backend ni --frontend.")
+    if args.sin_sdd:
+        args.metodologia = {"sdd": "ninguna", "ambas": "odd"}.get(args.metodologia, args.metodologia)
     return args
 
 
@@ -112,9 +127,12 @@ def main() -> None:
         build_layer(args.fullstack, "fullstack", root, docs_root, slug, pascal)
         index.append(f"- [Fullstack ({args.fullstack})](estructura-{args.fullstack}.md)")
         index.append("- Documentación de backend: `backend/`; de frontend: `frontend/`")
-    if not args.sin_sdd:
+    if args.metodologia in ("sdd", "ambas"):
         build_specs(docs_root, args.nombre)
         index.append("- [Specs (SDD)](specs/README.md): [constitución](specs/constitucion.md), plantillas en `specs/_plantillas/`")
+    if args.metodologia in ("odd", "ambas"):
+        build_odd(docs_root)
+        index.append("- [Tareas (ODD)](odd/README.md): registros en `odd/tasks/`, plantilla en `odd/_plantillas/`")
 
     (docs_root / "README.md").write_text("\n".join(index) + "\n", encoding="utf-8")
     print(f"Proyecto creado en: {root}")

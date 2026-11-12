@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """Instala la skill project-scaffold en Claude Code, OpenCode, Gemini CLI y/o Codex CLI.
 
-En Claude Code instala además los comandos /sdd-* (formato exclusivo de Claude Code).
+En Claude Code instala además los comandos /sdd-* y /odd-* (formato exclusivo de Claude Code).
 
 Multiplataforma (Windows, Linux, macOS). Ejemplos:
   python3 install.py                       # todas las herramientas, ámbito usuario
@@ -38,14 +38,14 @@ def commands_dir(scope: str) -> Path:
 
 def sync_commands(scope: str, uninstall: bool) -> None:
     dest = commands_dir(scope)
-    for cmd in sorted(COMMANDS.glob("sdd-*.md")):
+    for cmd in sorted([*COMMANDS.glob("sdd-*.md"), *COMMANDS.glob("odd-*.md")]):
         target = dest / cmd.name
         if uninstall:
             target.unlink(missing_ok=True)
         else:
             dest.mkdir(parents=True, exist_ok=True)
             shutil.copyfile(cmd, target)
-    print(f"[claude] comandos /sdd-* {'eliminados de' if uninstall else 'instalados en'}: {dest}")
+    print(f"[claude] comandos /sdd-* y /odd-* {'eliminados de' if uninstall else 'instalados en'}: {dest}")
 
 
 def install(dest: Path) -> None:

@@ -1,6 +1,6 @@
 {
   "name": "estructura-proyectos",
-  "version": "0.4.0",
+  "version": "0.5.0",
   "description": "Crea proyectos estandarizados (backend: Java, Python, Node, .NET; frontend: Angular, Vue, React) con estructura de directorios consistente carpeta Documentacion y specs de Spec-Driven Development (SDD).",
   "author": { "name": "Edgar López Martínez" },
   "keywords": ["scaffold", "estructura", "angular", "vue", "react", "java", "python", "node", "dotnet", "sdd", "spec-driven-development"]
