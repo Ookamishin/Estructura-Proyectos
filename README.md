@@ -44,7 +44,7 @@ python3 skills/project-scaffold/scripts/scaffold.py --nombre mi-app --fullstack 
 
 - Un solo tipo: la estructura queda en la raíz. Ambos: `backend/` y `frontend/`. `--fullstack`: un solo proyecto (no se combina con los anteriores).
 - `--force` permite usar una carpeta no vacía.
-- `--sin-sdd` omite la carpeta `Documentacion/specs`.
+- `--metodologia sdd|odd|ambas|ninguna` (por defecto `sdd`) elige qué se crea: `Documentacion/specs` (SDD) y/o `Documentacion/odd` (ODD). `--sin-sdd` queda como alias obsoleto.
 
 ## Documentacion
 Cada proyecto incluye `Documentacion/backend` y/o `Documentacion/frontend`, con la propuesta `estructura-<stack>.md` y subcarpetas (arquitectura, api, decisiones, guías…). Toda documentación generada se guarda ahí. Detalle en `skills/project-scaffold/references/documentacion.md`.
@@ -70,6 +70,14 @@ python3 skills/project-scaffold/scripts/validar_spec.py ~/proyectos/mi-api/Docum
 `commands/` contiene `/sdd-especificar`, `/sdd-aclarar`, `/sdd-planear`, `/sdd-tareas`, `/sdd-implementar` y `/sdd-validar`. Se cargan con el plugin (como `/estructura-proyectos:sdd-…`) o con `python3 install.py --tool claude` (en `~/.claude/commands`).
 
 > **Nota:** estos comandos usan el formato de Claude Code (Markdown con frontmatter y `$ARGUMENTS`). Para usarlos con otra IA hay que adaptarlos a su formato: Gemini CLI usa archivos `.toml` en `commands/` con `prompt` y `{{args}}`; OpenCode y Codex CLI usan `.md` en su propia carpeta de comandos/prompts. Verifica el formato en la documentación de cada herramienta. Sin comandos, cualquier IA puede seguir el mismo flujo pidiéndolo en lenguaje natural, ya que la skill y los scripts son comunes.
+
+## Organic Driven Development (ODD)
+Alternativa ligera a SDD, elegible por proyecto (`--metodologia odd` o `ambas`). Crea `Documentacion/odd/` con la guía (`README.md`), `_plantillas/tarea.md` y `tasks/`. Solo el trabajo **sustancial** (contrato/API, permisos, datos, irreversible, release, seguridad, o que falla el test de recuperación) genera un registro `tasks/NNN-slug.md` con Specs / Tasks / Verificación / Log; lo small se implementa y se commitea sin documentos. Guía fuente: `skills/project-scaffold/references/odd.md`.
+
+```
+python3 skills/project-scaffold/scripts/nueva_tarea.py --nombre "migrar sesiones" --ruta ~/proyectos/mi-api
+```
+La numeración es compartida con las specs SDD. Comando de Claude Code: `/odd-tarea`.
 
 ## Personalizar
 Edita juntos `structures/<stack>.dirs` y `proposals/<stack>.md`.
