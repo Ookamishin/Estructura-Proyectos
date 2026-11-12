@@ -3,6 +3,7 @@
 ```
 Documentacion/
 ├── README.md                 # índice
+├── specs/                    # SDD: README (guía), constitucion.md, _plantillas/, NNN-feature/
 ├── backend/
 │   ├── estructura-<stack>.md # propuesta de directorios
 │   ├── arquitectura/         # diagramas, capas, flujos
@@ -22,4 +23,4 @@ Documentacion/
     └── pruebas/
 ```
 
-Reglas: nombres en minúsculas con guiones, un tema por archivo, fecha y autor al inicio de cada documento, ADRs numerados.
+Reglas: nombres en minúsculas con guiones, un tema por archivo, fecha y autor al inicio de cada documento, ADRs y specs numerados (ver `sdd.md`).

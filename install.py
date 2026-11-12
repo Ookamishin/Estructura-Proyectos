@@ -1,6 +1,8 @@
 #!/usr/bin/env python3
 """Instala la skill project-scaffold en Claude Code, OpenCode, Gemini CLI y/o Codex CLI.
 
+En Claude Code instala además los comandos /sdd-* (formato exclusivo de Claude Code).
+
 Multiplataforma (Windows, Linux, macOS). Ejemplos:
   python3 install.py                       # todas las herramientas, ámbito usuario
   python3 install.py --tool claude opencode --scope project
@@ -12,6 +14,7 @@ from pathlib import Path
 
 SKILL_NAME = "project-scaffold"
 SOURCE = Path(__file__).resolve().parent / "skills" / SKILL_NAME
+COMMANDS = Path(__file__).resolve().parent / "commands"
 
 # (ámbito usuario relativo a ~, ámbito proyecto relativo al directorio actual)
 TARGETS = {
@@ -26,6 +29,23 @@ def destination(tool: str, scope: str) -> Path:
     user_rel, project_rel = TARGETS[tool]
     base = Path.home() / user_rel if scope == "user" else Path.cwd() / project_rel
     return base / SKILL_NAME
+
+
+def commands_dir(scope: str) -> Path:
+    """Carpeta de comandos de Claude Code; otras herramientas usan otro formato (ver README)."""
+    return (Path.home() if scope == "user" else Path.cwd()) / ".claude" / "commands"
+
+
+def sync_commands(scope: str, uninstall: bool) -> None:
+    dest = commands_dir(scope)
+    for cmd in sorted(COMMANDS.glob("sdd-*.md")):
+        target = dest / cmd.name
+        if uninstall:
+            target.unlink(missing_ok=True)
+        else:
+            dest.mkdir(parents=True, exist_ok=True)
+            shutil.copyfile(cmd, target)
+    print(f"[claude] comandos /sdd-* {'eliminados de' if uninstall else 'instalados en'}: {dest}")
 
 
 def install(dest: Path) -> None:
@@ -43,6 +63,8 @@ def main() -> None:
     args = p.parse_args()
 
     tools = list(TARGETS) if "all" in args.tool else args.tool
+    if "claude" in tools:
+        sync_commands(args.scope, args.uninstall)
     for tool in tools:
         dest = destination(tool, args.scope)
         if args.uninstall:

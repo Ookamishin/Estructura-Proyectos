@@ -22,6 +22,9 @@ DOC_SUBDIRS = {
     "frontend": ("arquitectura", "componentes", "diseno-ui", "decisiones", "guias", "pruebas"),
 }
 
+SDD_DIR = SKILL_ROOT / "templates" / "sdd"
+SDD_TEMPLATES = ("spec.md", "plan.md", "tareas.md")
+
 
 def new_dir(path: Path, keep: bool = False) -> None:
     path.mkdir(parents=True, exist_ok=True)
@@ -55,6 +58,19 @@ def build_layer(stack: str, tipo: str, base: Path, docs_root: Path, slug: str, p
     shutil.copyfile(SKILL_ROOT / "proposals" / f"{stack}.md", prop_dir / f"estructura-{stack}.md")
 
 
+def build_specs(docs_root: Path, nombre: str) -> None:
+    """Crea Documentacion/specs con la guía SDD, la constitución y las plantillas."""
+    specs = docs_root / "specs"
+    plantillas = specs / "_plantillas"
+    new_dir(plantillas)
+    shutil.copyfile(SKILL_ROOT / "references" / "sdd.md", specs / "README.md")
+    for name in SDD_TEMPLATES:
+        shutil.copyfile(SDD_DIR / name, plantillas / name)
+    constitucion = (SDD_DIR / "constitucion.md").read_text(encoding="utf-8")
+    constitucion = constitucion.replace("{{proyecto}}", nombre).replace("{{fecha}}", date.today().isoformat())
+    (specs / "constitucion.md").write_text(constitucion, encoding="utf-8")
+
+
 def parse_args() -> argparse.Namespace:
     p = argparse.ArgumentParser(description=__doc__, formatter_class=argparse.RawDescriptionHelpFormatter)
     p.add_argument("--nombre", required=True, help="nombre del proyecto")
@@ -63,6 +79,7 @@ def parse_args() -> argparse.Namespace:
     p.add_argument("--fullstack", choices=FULLSTACKS, help="un solo proyecto; no se combina con --backend/--frontend")
     p.add_argument("--ruta", default=".", help="directorio destino (por defecto, el actual)")
     p.add_argument("--force", action="store_true", help="permite usar una carpeta destino no vacía")
+    p.add_argument("--sin-sdd", action="store_true", help="no crea Documentacion/specs (Spec-Driven Development)")
     args = p.parse_args()
     if not (args.backend or args.frontend or args.fullstack):
         p.error("indica --backend, --frontend o --fullstack.")
@@ -95,6 +112,9 @@ def main() -> None:
         build_layer(args.fullstack, "fullstack", root, docs_root, slug, pascal)
         index.append(f"- [Fullstack ({args.fullstack})](estructura-{args.fullstack}.md)")
         index.append("- Documentación de backend: `backend/`; de frontend: `frontend/`")
+    if not args.sin_sdd:
+        build_specs(docs_root, args.nombre)
+        index.append("- [Specs (SDD)](specs/README.md): [constitución](specs/constitucion.md), plantillas en `specs/_plantillas/`")
 
     (docs_root / "README.md").write_text("\n".join(index) + "\n", encoding="utf-8")
     print(f"Proyecto creado en: {root}")
